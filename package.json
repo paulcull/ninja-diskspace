@@ -1,0 +1,12 @@
+{
+  "name": "ninja-diskspace",
+  "version": "0.0.1",
+  "description": "Free Disk Space",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/paulcull/ninja-diskspace",
+  "author": "paulcull",
+  "license": "BSD"
+}
