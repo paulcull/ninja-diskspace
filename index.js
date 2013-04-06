@@ -6,6 +6,9 @@ var Device = require('./lib/device')
 // Give our driver a stream interface
 util.inherits(dsDriver,stream);
 
+// should be an option, but for now
+var disk_to_watch = 's2';
+
 // Our greeting to the user.
 var HELLO_WORLD_ANNOUNCEMENT = {
   "contents": [
@@ -45,7 +48,7 @@ function dsDriver(opts,app) {
     }
 
     // Register a device
-    self.emit('register', new Device());
+    self.emit('register', new Device(disk_to_watch));
   });
 };
 
