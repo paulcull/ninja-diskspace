@@ -7,7 +7,11 @@ var Device = require('./lib/device')
 util.inherits(dsDriver,stream);
 
 // should be an option, but for now
-var disk_to_watch = 's2';
+// /dev/mmcblk0p2   3736512 1026724   2522448  29% /
+// variable used in grep to filter down - 
+// for example for my mac the filter is s2 for the main drive
+// in theory you could mount other network drives and monitor those too
+var disk_to_watch = '0p2';  
 
 // Our greeting to the user.
 var HELLO_WORLD_ANNOUNCEMENT = {
