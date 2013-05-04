@@ -11,7 +11,10 @@ util.inherits(dsDriver,stream);
 // variable used in grep to filter down - 
 // for example for my mac the filter is s2 for the main drive
 // in theory you could mount other network drives and monitor those too
+// e.g. my macbook is 0s2
+// e.g. my NB is 0p2
 var disk_to_watch = '0p2';  
+var enabled = true;
 
 // Our greeting to the user.
 var HELLO_WORLD_ANNOUNCEMENT = {
@@ -41,18 +44,21 @@ function dsDriver(opts,app) {
 
   app.on('client::up',function(){
 
-    // The client is now connected to the Ninja Platform
+  if (enabled)
+    {    // The client is now connected to the Ninja Platform
 
-    // Check if we have sent an announcement before.
-    // If not, send one and save the fact that we have.
-    if (!opts.hasSentAnnouncement) {
-      self.emit('announcement',HELLO_WORLD_ANNOUNCEMENT);
-      opts.hasSentAnnouncement = true;
-      self.save();
+        // Check if we have sent an announcement before.
+        // If not, send one and save the fact that we have.
+        if (!opts.hasSentAnnouncement) {
+          self.emit('announcement',HELLO_WORLD_ANNOUNCEMENT);
+          opts.hasSentAnnouncement = true;
+          self.save();
+        }
+
+        // Register a device
+        self.emit('register', new Device(app, disk_to_watch));
+      
     }
-
-    // Register a device
-    self.emit('register', new Device(disk_to_watch));
   });
 };
 
