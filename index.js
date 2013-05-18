@@ -13,7 +13,7 @@ util.inherits(dsDriver,stream);
 // in theory you could mount other network drives and monitor those too
 // e.g. my macbook is 0s2
 // e.g. my NB is 0p2
-var disk_to_watch = '0p2';  
+var disk_to_watch = '0p2xx';  
 var enabled = true;
 
 // Our greeting to the user.
@@ -41,6 +41,7 @@ var HELLO_WORLD_ANNOUNCEMENT = {
 function dsDriver(opts,app) {
 
   var self = this;
+  this.opts = opts;
 
   app.on('client::up',function(){
 
@@ -54,10 +55,12 @@ function dsDriver(opts,app) {
           opts.hasSentAnnouncement = true;
           self.save();
         }
-
+        if (!opts.disk_string) {
+          opts.disk_string = disk_to_watch;
+          self.save(); 
+        }
         // Register a device
-        self.emit('register', new Device(app, disk_to_watch));
-      
+        self.emit('register', new Device(app, opts));
     }
   });
 };
@@ -79,10 +82,10 @@ dsDriver.prototype.config = function(rpc,cb) {
   // can do.
   // Otherwise, we will try action the rpc method
   if (!rpc) {
-    return configHandlers.menu.call(this,cb);
+    return configHandlers.menu.call(this,this.opts.disk_string,cb);
   }
   else if (typeof configHandlers[rpc.method] === "function") {
-    return configHandlers[rpc.method].call(this,rpc.params,cb);
+    return configHandlers[rpc.method].call(this,this.opts,rpc.params,cb);
   }
   else {
     return cb(true);
