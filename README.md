@@ -4,7 +4,7 @@ Author: Paul Cullender
 Version: 1.0
 Status: Stable
 License: BSD
-======================
+
 
 ## Installation
 ### Step 1 - fetch driver
