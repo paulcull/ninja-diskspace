@@ -1,8 +1,13 @@
 Ninja Diskspace Module
 ======================
+Author: Paul Cullender
+Version: 1.0
+Status: Stable
+License: BSD
+======================
 
 ## Installation
-### Step 1 - fetch module (must be on develop branch)
+### Step 1 - fetch driver
 ```
 cd PATH_TO_NINJA_CLIENT/drivers
 git clone https://github.com/paulcull/ninja-diskspace.git
@@ -25,7 +30,8 @@ none              125780       0    125780   0% /run/shm
 tmpfs              51200    6128     45072  12% /var/log
 /dev/mmcblk0p1     65390   11152     54238  18% /boot/uboot
 ```
-change the disk_to_monitor varialble to part of the string for that device 
-e.g. 0p2 would work for the root device
+defaults to 0p2 for the ninjablock, but you can use the driver
+configuration to change the string to search for in the
+output from df -k
 
 ### Step 2 - restart process
