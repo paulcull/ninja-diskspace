@@ -13,7 +13,7 @@ util.inherits(dsDriver,stream);
 // in theory you could mount other network drives and monitor those too
 // e.g. my macbook is 0s2
 // e.g. my NB is 0p2
-var disk_to_watch = '0p2xx';  
+var disk_to_watch = '0p2';  
 var enabled = true;
 
 // Our greeting to the user.
@@ -55,9 +55,16 @@ function dsDriver(opts,app) {
           opts.hasSentAnnouncement = true;
           self.save();
         }
+
         if (!opts.disk_string) {
-          opts.disk_string = disk_to_watch;
-          self.save(); 
+          opts.platform = process.platform
+          if (process.platform == 'darwin') 
+           {opts.disk_string = '0s2'} 
+          else if (process.platform =='win32')
+            {opts.disk_string = 'c:'}
+          else 
+            {opts.disk_string = '0p2'}
+          self.save();
         }
         // Register a device
         self.emit('register', new Device(app, opts));
