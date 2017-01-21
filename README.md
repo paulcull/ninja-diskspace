@@ -1,5 +1,7 @@
 Ninja Diskspace Module
 ======================
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/paulcull/ninja-diskspace.svg)](https://greenkeeper.io/)
 Author: Paul Cullender
 Version: 1.0
 Status: Stable
